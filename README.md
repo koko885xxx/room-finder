@@ -4,7 +4,7 @@
 
 ## 🌐 デモサイト
 
-https://koko8850xx.github.io/room-finder/
+https://koko885xxx.github.io/room-finder/
 
 ## 📱 収録サイト
 
