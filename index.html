@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
     <title>関東お部屋探しサイト一覧</title>
     <style>
@@ -35,6 +36,201 @@
             color: #666;
             margin-bottom: 40px;
             font-size: 0.95rem;
+        }
+
+        .saved-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .saved-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .saved-title {
+            font-size: 1.3rem;
+            color: #333;
+        }
+
+        .add-btn {
+            background: #7ac142;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #6ab032;
+        }
+
+        .property-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .property-card {
+            background: #fafafa;
+            border-radius: 6px;
+            padding: 16px;
+            position: relative;
+        }
+
+        .property-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .property-info {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .property-memo {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .property-link {
+            display: inline-block;
+            margin-top: 8px;
+            color: #0066cc;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .property-link:hover {
+            text-decoration: underline;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-size: 0.95rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #7ac142;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #6ab032;
+        }
+
+        .btn-secondary {
+            background: #ddd;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #ccc;
         }
 
         .category {
@@ -123,6 +319,10 @@
             .sites-grid {
                 grid-template-columns: 1fr;
             }
+
+            .modal-content {
+                padding: 24px;
+            }
         }
     </style>
 </head>
@@ -130,6 +330,14 @@
     <div class="container">
         <h1>関東お部屋探しサイト</h1>
         <p class="subtitle">一人暮らし・シェアハウス向け</p>
+
+        <div class="saved-section">
+            <div class="saved-header">
+                <h2 class="saved-title">💾 保存した物件</h2>
+                <button class="add-btn" onclick="openModal()">+ 物件を追加</button>
+            </div>
+            <div id="propertyList" class="property-list"></div>
+        </div>
 
         <div class="category">
             <h2 class="category-title">総合賃貸サイト</h2>
@@ -206,7 +414,7 @@
                     </div>
                     <div class="site-name">クロスハウス</div>
                     <div class="site-description">初期費用安い。短期契約も可能</div>
-                    </a>
+                </a>
             </div>
         </div>
 
@@ -223,5 +431,117 @@
             </div>
         </div>
     </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">物件を追加</h3>
+            <div class="form-group">
+                <label class="form-label">物件名 *</label>
+                <input type="text" id="propertyName" class="form-input" placeholder="例：〇〇マンション 101号室">
+            </div>
+            <div class="form-group">
+                <label class="form-label">家賃</label>
+                <input type="text" id="propertyRent" class="form-input" placeholder="例：85,000円">
+            </div>
+            <div class="form-group">
+                <label class="form-label">場所</label>
+                <input type="text" id="propertyLocation" class="form-input" placeholder="例：渋谷駅徒歩5分">
+            </div>
+            <div class="form-group">
+                <label class="form-label">サイト名</label>
+                <input type="text" id="propertySite" class="form-input" placeholder="例：SUUMO">
+            </div>
+            <div class="form-group">
+                <label class="form-label">物件URL</label>
+                <input type="url" id="propertyUrl" class="form-input" placeholder="https://...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">メモ</label>
+                <textarea id="propertyMemo" class="form-textarea" placeholder="気になったポイントなど..."></textarea>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">キャンセル</button>
+                <button class="btn btn-primary" onclick="saveProperty()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let properties = JSON.parse(localStorage.getItem('savedProperties')) || [];
+
+        function renderProperties() {
+            const list = document.getElementById('propertyList');
+            
+            if (properties.length === 0) {
+                list.innerHTML = '<div class="empty-message">まだ物件が保存されていません。<br>「+ 物件を追加」ボタンから気になる物件を保存しましょう！</div>';
+                return;
+            }
+
+            list.innerHTML = properties.map((p, i) => `
+                <div class="property-card">
+                    <button class="delete-btn" onclick="deleteProperty(${i})">削除</button>
+                    <div class="property-name">${p.name}</div>
+                    ${p.rent ? `<div class="property-info">💰 ${p.rent}</div>` : ''}
+                    ${p.location ? `<div class="property-info">📍 ${p.location}</div>` : ''}
+                    ${p.site ? `<div class="property-info">🌐 ${p.site}</div>` : ''}
+                    ${p.url ? `<a href="${p.url}" target="_blank" class="property-link">物件ページを見る →</a>` : ''}
+                    ${p.memo ? `<div class="property-memo">📝 ${p.memo}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function openModal() {
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            clearForm();
+        }
+
+        function clearForm() {
+            document.getElementById('propertyName').value = '';
+            document.getElementById('propertyRent').value = '';
+            document.getElementById('propertyLocation').value = '';
+            document.getElementById('propertySite').value = '';
+            document.getElementById('propertyUrl').value = '';
+            document.getElementById('propertyMemo').value = '';
+        }
+
+        function saveProperty() {
+            const name = document.getElementById('propertyName').value.trim();
+            
+            if (!name) {
+                alert('物件名を入力してください');
+                return;
+            }
+
+            const property = {
+                name,
+                rent: document.getElementById('propertyRent').value.trim(),
+                location: document.getElementById('propertyLocation').value.trim(),
+                site: document.getElementById('propertySite').value.trim(),
+                url: document.getElementById('propertyUrl').value.trim(),
+                memo: document.getElementById('propertyMemo').value.trim(),
+                date: new Date().toLocaleDateString('ja-JP')
+            };
+
+            properties.unshift(property);
+            localStorage.setItem('savedProperties', JSON.stringify(properties));
+            
+            renderProperties();
+            closeModal();
+        }
+
+        function deleteProperty(index) {
+            if (confirm('この物件を削除しますか？')) {
+                properties.splice(index, 1);
+                localStorage.setItem('savedProperties', JSON.stringify(properties));
+                renderProperties();
+            }
+        }
+
+        renderProperties();
+    </script>
 </body>
 </html>
