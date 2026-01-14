@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>関東お部屋探しサイト一覧</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 0.95rem;
+        }
+
+        .category {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .site-card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .site-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            background: #fafafa;
+            border-radius: 6px;
+            padding: 12px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .suumo { color: #7ac142; }
+        .homes { color: #ff6b00; }
+        .athome { color: #0066cc; }
+        .village { color: #e74c3c; }
+        .ur { color: #2c3e50; }
+        .oak { color: #27ae60; }
+        .hituji { color: #9b59b6; }
+        .cross { color: #e67e22; }
+        .airbnb { color: #ff5a5f; }
+
+        .site-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .site-description {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .sites-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>関東お部屋探しサイト</h1>
+        <p class="subtitle">一人暮らし・シェアハウス向け</p>
+
+        <div class="category">
+            <h2 class="category-title">総合賃貸サイト</h2>
+            <div class="sites-grid">
+                <a href="https://suumo.jp/" class="site-card" target="_blank">
+                    <div class="logo-container">
+                        <div class="logo-text suumo">SUUMO</div>
+                    </div>
+                    <div class="site-name">スーモ</div>
+                    <div class="site-description">物件数No.1。エリア・路線検索が充実</div>
+                </a>
+
+                <a href="https://www.homes.co.jp/" class="site-card" target="_blank">
+                    <div class="logo-container">
+                        <div class="logo-text homes">HOME'S</div>
+                    </div>
+                    <div class="site-name">ホームズ</div>
+                    <div class="site-description">写真・動画が豊富。詳細検索が便利</div>
+                </a>
+
+                <a href="https://www.athome.co.jp/" class="site-card" target="_blank">
+                    <div class="logo-container">
+                        <div class="logo-text athome">athome</div>
+                    </div>
+                    <div class="site-name">アットホーム</div>
+                    <div class="site-description">地域密着の不動産会社の物件多数</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="category-title">初期費用を抑えたい方向け</h2>
+            <div class="sites-grid">
+                <a href="https://www.villagehouse.jp/" class="site-card" target="_blank">
+                    <div class="logo-container">
+                        <div class="logo-text village">Village House</div>
+                    </div>
+                    <div class="site-name">ビレッジハウス</div>
+                    <div class="site-description">敷金・礼金・手数料・更新料 全て0円</div>
+                </a>
+
+                <a href="https://www.ur-net.go.jp/" class="site-card" target="_blank">
+                    <div class="logo-container">
+                        <div class="logo-text ur">UR賃貸</div>
+                    </div>
+                    <div class="site-name">UR賃貸住宅</div>
+                    <div class="site-description">礼金・仲介手数料・更新料不要</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="category-title">シェアハウス専門</h2>
+            <div class="sites-grid">
+                <a href="https://www.oakhouse.jp/" class="site-card" target="_blank">
+                    <div class="logo-container">
+                        <div class="logo-text oak">OAKHOUSE</div>
+                    </div>
+                    <div class="site-name">オークハウス</div>
+                    <div class="site-description">関東最大級。物件数が豊富</div>
+                </a>
+
+                <a href="https://www.hituji.jp/" class="site-card" target="_blank">
+                    <div class="logo-container">
+                        <div class="logo-text hituji">ひつじ不動産</div>
+                    </div>
+                    <div class="site-name">ひつじ不動産</div>
+                    <div class="site-description">シェアハウス専門検索サイト</div>
+                </a>
+
+                <a href="https://x-house.co.jp/" class="site-card" target="_blank">
+                    <div class="logo-container">
+                        <div class="logo-text cross">CROSS HOUSE</div>
+                    </div>
+                    <div class="site-name">クロスハウス</div>
+                    <div class="site-description">初期費用安い。短期契約も可能</div>
+                    </a>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="category-title">おまけ：短期滞在向け</h2>
+            <div class="sites-grid">
+                <a href="https://www.airbnb.jp/" class="site-card" target="_blank">
+                    <div class="logo-container">
+                        <div class="logo-text airbnb">Airbnb</div>
+                    </div>
+                    <div class="site-name">エアビーアンドビー</div>
+                    <div class="site-description">数日〜数週間の短期滞在に。家具付き</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
